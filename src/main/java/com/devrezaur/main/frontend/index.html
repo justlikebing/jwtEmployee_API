@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot UI</title>
+</head>
+<body>
+<h1>Spring Boot UI</h1>
+
+<!-- Form to authenticate and generate auth refresh token -->
+<form id="authForm">
+    <h2>Authenticate</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <button type="submit">Authenticate</button>
+</form>
+
+<!-- Form to refresh token -->
+<form id="refreshTokenForm">
+    <h2>Refresh Token</h2>
+    <label for="refreshToken">Refresh Token:</label>
+    <input type="text" id="refreshToken" name="refreshToken"><br><br>
+    <button type="submit">Refresh Token</button>
+</form>
+
+<!-- Display area for API responses -->
+<div id="responseArea"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Event handler for authentication form submission
+        $('#authForm').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var formData = {
+                username: $('#username').val(),
+                password: $('#password').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/auth/authenticate',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    // Log the entire response object
+                    console.log('Response:', response);
+
+                    // Check if the authentication token is present in the response
+                    if (response && response.token) {
+                        // Log the authentication token
+                        console.log('Authentication Token:', response.token);
+
+                        // Display the authentication token in the response area
+                        $('#responseArea').text('Auth Token: ' + response.token);
+                    } else {
+                        // If authentication token is not present, log an error message
+                        console.error('Authentication token not found in response');
+                        $('#responseArea').text('Error: Authentication token not found');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Log the error details
+                    console.error('Error:', error);
+
+                    // Display the error message in the response area
+                    $('#responseArea').text('Error: ' + xhr.responseText);
+                }
+            });
+        });
+
+        // Event handler for refresh token form submission
+        $('#refreshTokenForm').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var formData = {
+                refreshToken: $('#refreshToken').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/auth/refreshtoken',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    // Log the entire response object
+                    console.log('Response:', response);
+
+                    // Check if the authentication token is present in the response
+                    if (response && response.jwt) {
+                        // Log the authentication token
+                        console.log('Authentication Token:', response.jwt);
+
+                        // Display the authentication token in the response area
+                        $('#responseArea').text('Auth Token: ' + response.jwt);
+                    } else {
+                        // If authentication token is not present, log an error message
+                        console.error('Authentication token not found in response');
+                        $('#responseArea').text('Error: Authentication token not found');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Log the error details
+                    console.error('Error:', error);
+
+                    // Display the error message in the response area
+                    $('#responseArea').text('Error: ' + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
