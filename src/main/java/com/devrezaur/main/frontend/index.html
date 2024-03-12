@@ -16,14 +16,26 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"><br><br>
     <button type="submit">Authenticate</button>
+    <button id="fetchUsersBtn">Fetch Users</button>
 </form>
 
-<!-- Form to refresh token -->
-<form id="refreshTokenForm">
-    <h2>Refresh Token</h2>
-    <label for="refreshToken">Refresh Token:</label>
-    <input type="text" id="refreshToken" name="refreshToken"><br><br>
-    <button type="submit">Refresh Token</button>
+<!-- Form to use refresh token -->
+<form id="useRefreshTokenForm">
+    <h2>Use Refresh Token</h2>
+    <label for="refreshTokenToUse">Refresh Token:</label>
+    <input type="text" id="refreshTokenToUse" name="refreshTokenToUse"><br><br>
+    <button type="submit">Use Refresh Token</button>
+</form>
+<!-- Form to create a new user -->
+<form id="createUserForm">
+    <h2>Create User</h2>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName"><br><br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName"><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <button type="submit">Create User</button>
 </form>
 
 <!-- Display area for API responses -->
@@ -32,6 +44,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        var token;
         // Event handler for authentication form submission
         $('#authForm').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
@@ -48,17 +61,19 @@
                     // Log the entire response object
                     console.log('Response:', response);
 
-                    // Check if the authentication token is present in the response
-                    if (response && response.token) {
-                        // Log the authentication token
+                    // Check if the authentication token and refresh token are present in the response
+                    if (response && response.token && response.refreshToken) {
+                        // Log the authentication token and refresh token
                         console.log('Authentication Token:', response.token);
+                        console.log('Refresh Token:', response.refreshToken);
+                        token = response.token;
 
-                        // Display the authentication token in the response area
-                        $('#responseArea').text('Auth Token: ' + response.token);
+                        // Display the authentication token and refresh token in the response area
+                        $('#responseArea').html('Auth Token: ' + response.token + '<br>Refresh Token: ' + response.refreshToken);
                     } else {
-                        // If authentication token is not present, log an error message
-                        console.error('Authentication token not found in response');
-                        $('#responseArea').text('Error: Authentication token not found');
+                        // If authentication token or refresh token is not present, log an error message
+                        console.error('Authentication token or refresh token not found in response');
+                        $('#responseArea').text('Error: Authentication token or refresh token not found');
                     }
                 },
                 error: function(xhr, status, error) {
@@ -70,33 +85,97 @@
                 }
             });
         });
-
-        // Event handler for refresh token form submission
-        $('#refreshTokenForm').submit(function(event) {
+        $('#createUserForm').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
             var formData = {
-                refreshToken: $('#refreshToken').val()
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                email: $('#email').val()
             };
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8080/auth/refreshtoken',
+                url: 'http://localhost:8080/employees',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                headers: {
+                    'Authorization': 'Bearer ' + token // Use the authentication token fetched from the authentication response
+                },
+                success: function(response) {
+                    // Log the entire response object
+                    console.log('Create User Response:', response);
+
+                    // Display success message
+                    $('#responseArea').html('User created successfully');
+                },
+                error: function(xhr, status, error) {
+                    // Log the error details
+                    console.error('Error:', error);
+
+                    // Display the error message in the response area
+                    $('#responseArea').text('Error: ' + xhr.responseText);
+                }
+            });
+        });
+        $('#fetchUsersBtn').click(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/users/',
+                headers: {
+                    'Authorization': 'Bearer ' + token // Use the authentication token fetched from the authentication response
+                },
+                success: function(response) {
+                    // Log the entire response object
+                    console.log('All Users:', response);
+
+                    // Display the list of users
+                    var userListHtml = '<h2>All Users</h2><ul>';
+                    response.forEach(function(user) {
+                        userListHtml += '<li>' + user.firstName + ' ' + user.lastName + ' - ' + user.email + '</li>';
+                    });
+                    userListHtml += '</ul>';
+                    $('#responseArea').html(userListHtml);
+                },
+                error: function(xhr, status, error) {
+                    // Log the error details
+                    console.error('Error:', error);
+
+                    // Display the error message in the response area
+                    $('#responseArea').text('Error: ' + xhr.responseText);
+                }
+            });
+        });
+
+
+
+
+
+
+        // Event handler for using refresh token form submission
+        $('#useRefreshTokenForm').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var formData = {
+                token: $('#refreshTokenToUse').val() // Pass the refresh token in the 'token' field
+            };
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/auth/refreshtoken', // Update the URL here
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
                     // Log the entire response object
                     console.log('Response:', response);
 
-                    // Check if the authentication token is present in the response
-                    if (response && response.jwt) {
-                        // Log the authentication token
-                        console.log('Authentication Token:', response.jwt);
+                    // Check if the new authentication token is present in the response
+                    if (response && response.accessToken) {
+                        // Log the new authentication token
+                        console.log('New Authentication Token:', response.accessToken);
 
-                        // Display the authentication token in the response area
-                        $('#responseArea').text('Auth Token: ' + response.jwt);
+                        // Display the new authentication token in the response area
+                        $('#responseArea').html('New Auth Token: ' + response.accessToken);
                     } else {
-                        // If authentication token is not present, log an error message
-                        console.error('Authentication token not found in response');
-                        $('#responseArea').text('Error: Authentication token not found');
+                        // If new authentication token is not present, log an error message
+                        console.error('New Authentication token not found in response');
+                        $('#responseArea').text('Error: New Authentication token not found');
                     }
                 },
                 error: function(xhr, status, error) {
