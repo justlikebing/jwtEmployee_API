@@ -49,7 +49,7 @@ public class UserController2 {
 
     }
 
-    @PostMapping
+    @PostMapping("/create")
 
     public String createUser(@RequestBody User2 user) {
 

@@ -20,7 +20,6 @@ com\devrezaur\main\UserNotFoundException.class
 com\devrezaur\main\controller\UserController.class
 com\devrezaur\main\model\RefreshToken.class
 com\devrezaur\main\security\jwt\RefreshTokenService.class
-com\devrezaur\main\controller\EmployeeController.class
 com\devrezaur\main\controller\UserController2.class
 com\devrezaur\main\controller\AuthController.class
 com\devrezaur\main\model\User.class
