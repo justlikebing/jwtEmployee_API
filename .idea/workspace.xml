@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb4fa8e1-0bdf-4cf1-bf04-65b05a184c69" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/screenshots/access-denied.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/admin-content.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/admin-registration.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/authenticate-api.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/logout.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/refresh-token-expired.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/token-refresh-api.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/user-content.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/user-registration.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devrezaur/main/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devrezaur/main/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
