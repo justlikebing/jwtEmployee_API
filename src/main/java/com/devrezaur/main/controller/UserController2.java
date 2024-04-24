@@ -1,7 +1,4 @@
 package com.devrezaur.main.controller;
-
-
-
 import com.devrezaur.main.UserNotFoundException;
 import com.devrezaur.main.model.User2;
 import com.devrezaur.main.repository.UserRepository2;

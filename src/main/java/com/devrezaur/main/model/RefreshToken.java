@@ -42,7 +42,11 @@ public class RefreshToken {
 		this.expDate = expDate;
 	}
 
-	public long getId() {
+	public RefreshToken(String sampleRefreshToken) {
+
+	}
+
+    public long getId() {
 		return id;
 	}
 

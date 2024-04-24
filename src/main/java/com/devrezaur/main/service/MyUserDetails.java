@@ -31,9 +31,13 @@ public class MyUserDetails implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public MyUserDetails(User user) {
+
+	}
+
 	public static MyUserDetails build(User user) {
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		
+
 		for (Role role : user.getRoles()) {
 			roles.add(new SimpleGrantedAuthority(role.getRole()));
 		}

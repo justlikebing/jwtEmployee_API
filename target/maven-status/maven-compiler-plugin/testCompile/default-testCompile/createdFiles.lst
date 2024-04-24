@@ -1,2 +1,3 @@
+com\devrezaur\main\UserServiceTest.class
 com\devrezaur\main\UserControllerTest.class
 com\devrezaur\main\JwtRefreshTokenSpringBootApplicationTests.class

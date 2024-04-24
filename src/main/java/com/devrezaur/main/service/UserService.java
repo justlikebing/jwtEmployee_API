@@ -11,7 +11,7 @@ import com.devrezaur.main.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -27,16 +27,39 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Role userRole = roleRepository.findByRole("ROLE_USER");
 		user.setRoles(Arrays.asList(userRole));
-		
-        return user = userRepository.save(user);
+
+		return user = userRepository.save(user);
 	}
-	
+
 	public User saveAdmin(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Role adminRole = roleRepository.findByRole("ROLE_ADMIN");
 		user.setRoles(Arrays.asList(adminRole));
-		
-        return user = userRepository.save(user);
+
+		return user = userRepository.save(user);
 	}
 
+	public Object getEmployees() {
+
+
+		return null;
+	}
+
+	public Object authenticate(String testUser, String testPassword) {
+		return null;
+	}
+
+	public Object getEmployeeById(long l) {
+		return null;
+	}
+
+	public void deleteUser(Long userId) {
+
+	}
+
+	public User findUserById(Long userId) {
+
+
+        return null;
+    }
 }

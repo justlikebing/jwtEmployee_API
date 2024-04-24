@@ -1,5 +1,4 @@
 package com.devrezaur.main.service;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,6 +58,10 @@ public class Employee {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    public void setName(String johnDoe) {
+
     }
 }
 

@@ -22,5 +22,6 @@ com\devrezaur\main\model\RefreshToken.class
 com\devrezaur\main\security\jwt\RefreshTokenService.class
 com\devrezaur\main\controller\UserController2.class
 com\devrezaur\main\controller\AuthController.class
+com\devrezaur\main\Logging\LoggingController.class
 com\devrezaur\main\model\User.class
 com\devrezaur\main\payload\JwtResponse.class
